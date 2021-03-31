@@ -5,5 +5,6 @@ export const post = async (
   data: any,
   headers: any,
 ): Promise<any> => {
-  return await axios.post(url, data, {headers});
+  const res = await axios.post(url, data, {headers});
+  return {data: res.data, status: res.status};
 };

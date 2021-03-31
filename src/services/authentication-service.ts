@@ -7,9 +7,16 @@ export interface IAuthenticateResult {
   token_type: string;
 }
 
-export const oauth = async (apiKey: string): Promise<IAuthenticateResult> => {
-  return await httpService.post(API_URL, null, {
-    grant_type: 'client_credentials',
-    scope: apiKey,
-  });
+export const oauth = async (
+  apiKey: string,
+): Promise<IAuthenticateResult | undefined> => {
+  try {
+    const res = await httpService.post(API_URL, null, {
+      grant_type: 'client_credentials',
+      scope: apiKey,
+    });
+    return res.data;
+  } catch {
+    return;
+  }
 };

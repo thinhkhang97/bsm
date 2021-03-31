@@ -1,10 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
+import {useAuthentication} from '../../hooks/authentication';
 
 export const Sensors = () => {
+  const token = useAuthentication();
   return (
     <View>
-      <Text>Sensor list</Text>
+      <Text>{token || 'No TOKEN'}</Text>
     </View>
   );
 };

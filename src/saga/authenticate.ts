@@ -6,15 +6,16 @@ import {IAuthenticateResult} from '../services/authentication-service';
 import {setAccessTokenAction} from '../action/authenticate';
 
 function* getAccessToken() {
-  try {
-    const result: IAuthenticateResult = yield authenticationService.oauth(
-      API_KEY,
-    );
+  const result: IAuthenticateResult = yield authenticationService.oauth(
+    API_KEY,
+  );
+  if (result) {
     const {access_token} = result;
+    console.log('ACCESS TOKEN', access_token);
     if (access_token) {
       yield put(setAccessTokenAction(access_token));
     }
-  } catch {}
+  }
 }
 
 export function* authenticationSaga() {
