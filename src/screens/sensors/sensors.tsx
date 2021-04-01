@@ -20,8 +20,12 @@ export const Sensors = () => {
     dispatch(getSensorAction());
   }, []);
 
+  const handlePressItem = (item: ISensor) => {
+    navigation.navigate({name: SCREEN_NAME.SENSOR_DETAIL, params: item});
+  };
+
   const renderItem = ({item}: {item: ISensor}) => {
-    return <SensorItem data={item} />;
+    return <SensorItem data={item} onPress={handlePressItem} />;
   };
 
   const keyExtractor = (item: ISensor) => `list_sensors_item_${item.deviceId}`;

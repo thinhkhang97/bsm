@@ -1,22 +1,29 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {COLOR} from '../../assets/theme';
 import {ISensor} from '../../type/sensor';
 
 interface Props {
   data: ISensor;
+  onPress?: (data: ISensor) => void;
 }
 
-export const SensorItem: React.FC<Props> = ({data}) => {
+export const SensorItem: React.FC<Props> = ({data, onPress}) => {
   const {deviceId, name, serial} = data;
+  const handlePress = React.useCallback(() => {
+    onPress && onPress(data);
+  }, [data]);
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{deviceId}</Text>
-      <View style={styles.rightContainer}>
-        <Text style={styles.text}>{name}</Text>
-        <Text style={styles.text}>{serial}</Text>
+    <TouchableOpacity onPress={handlePress}>
+      <View style={styles.container}>
+        <Text style={styles.text}>{deviceId}</Text>
+        <View style={styles.rightContainer}>
+          <Text style={styles.text}>{name}</Text>
+          <Text style={styles.text}>{serial}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
