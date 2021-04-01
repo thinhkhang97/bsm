@@ -7,3 +7,7 @@ export interface ISensor {
   longitude: number;
   latitude: number;
 }
+
+export interface ISensorState {
+  sensors: ISensor[];
+}

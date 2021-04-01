@@ -14,7 +14,7 @@ export type GetSensorActionType = {
 };
 
 export type SetSensorActionType = {
-  sensor: ISensor;
+  sensors: ISensor[];
   type: SensorActionTypeEnum.SET_SENSOR_WITH_IOT;
 };
 

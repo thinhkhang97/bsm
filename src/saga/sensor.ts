@@ -1,14 +1,12 @@
-import {select, takeEvery} from '@redux-saga/core/effects';
+import {put, takeEvery} from '@redux-saga/core/effects';
+import {setSensorAction} from '../action/sensor';
 import {SensorActionTypeEnum} from '../action/type/sensor';
-import {selectAccessToken} from '../selectors/authentication';
+import {sensorGQL} from '../graphql/sensor';
+import {ISensor} from '../type/sensor';
 
 export function* getSensorWithIoT() {
-  try {
-    const token: string = yield select(selectAccessToken);
-    if (!!token) {
-      // call to get sensor data
-    }
-  } catch {}
+  const sensors: ISensor[] = yield sensorGQL.getSensorsWithIoT();
+  yield put(setSensorAction(sensors));
 }
 
 export function* sensorSaga() {

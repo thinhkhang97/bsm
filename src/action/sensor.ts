@@ -7,9 +7,9 @@ export const getSensorAction = (): SensorActionType => {
   };
 };
 
-export const setSensorAction = (sensor: ISensor): SensorActionType => {
+export const setSensorAction = (sensors: ISensor[]): SensorActionType => {
   return {
-    sensor,
+    sensors,
     type: SensorActionTypeEnum.SET_SENSOR_WITH_IOT,
   };
 };
