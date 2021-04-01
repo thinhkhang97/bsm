@@ -53,7 +53,26 @@ export const updateSensor = async (
   }
 };
 
+export const DELETE_SENSOR = gql`
+  mutation DeleteDevices($type: String, $deviceIds: [Int]) {
+    deleteDevices(type: $type, deviceIds: $deviceIds) {
+      rows_deleted
+    }
+  }
+`;
+
+export const deleteSensors = async (deviceIds: number[]): Promise<void> => {
+  try {
+    const res = await client.mutate({
+      mutation: DELETE_SENSOR,
+      variables: {type: 'Device', deviceIds},
+    });
+    console.log(res);
+  } catch {}
+};
+
 export const sensorGQL = {
   getSensorsWithIoT,
   updateSensor,
+  deleteSensors,
 };

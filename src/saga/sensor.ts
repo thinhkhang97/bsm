@@ -27,7 +27,7 @@ function* updateSensor(action: UpdateSensorActionType) {
 
 function* deleteSensor(action: DeleteSensorActionType) {
   // Call API to delete sensor
-
+  sensorGQL.deleteSensors([action.deviceId]);
   yield put(deleteSuccessfullySensorAction(action.deviceId));
 }
 
