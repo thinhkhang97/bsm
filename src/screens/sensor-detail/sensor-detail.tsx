@@ -2,6 +2,8 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {
+  Alert,
+  Button,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -11,6 +13,8 @@ import {
   View,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useDispatch} from 'react-redux';
+import {deleteSensorAction, updateSensorAction} from '../../action/sensor';
 import {COLOR} from '../../assets/theme';
 import {FormInput} from '../../components';
 import {ISensor} from '../../type/sensor';
@@ -18,6 +22,7 @@ import {ISensor} from '../../type/sensor';
 export const SensorDetail = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const route = useRoute();
+  const dispatch = useDispatch();
   const [data, setData] = useState<ISensor>();
 
   useEffect(() => {
@@ -35,6 +40,34 @@ export const SensorDetail = () => {
   const handleBack = () => {
     navigation.goBack();
   };
+
+  const handleSave = () => {
+    if (data) {
+      dispatch(updateSensorAction(data));
+      Alert.alert('Update successfully');
+      navigation.goBack();
+    }
+  };
+
+  const handleDelete = () => {
+    Alert.alert('DELETE SENSOR', 'Do you really want to delete this sensor?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => {
+          if (data) {
+            dispatch(deleteSensorAction(data.deviceId));
+            navigation.goBack();
+          }
+        },
+        style: 'destructive',
+      },
+    ]);
+  };
+
   if (!data) {
     return (
       <SafeAreaView>
@@ -51,12 +84,10 @@ export const SensorDetail = () => {
             <Text style={styles.back}>Back</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={styles.centerHeader}>
-            <Text style={styles.title}>SENSOR DETAIL</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
+        <View style={styles.centerHeader}>
+          <Text style={styles.title}>SENSOR DETAIL</Text>
+        </View>
+        <TouchableOpacity onPress={handleSave}>
           <View style={styles.rightHeader}>
             <Text style={styles.save}>Save</Text>
           </View>
@@ -109,6 +140,7 @@ export const SensorDetail = () => {
             name="latitude"
             onChangeText={handleChange}
           />
+          <Button title="DELETE SENSOR" onPress={handleDelete} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

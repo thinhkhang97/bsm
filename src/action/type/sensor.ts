@@ -25,7 +25,7 @@ export type DeleteSensorActionType = {
 
 export type DeleteSuccessfullySensorActionType = {
   deviceId: number;
-  type: SensorActionTypeEnum.DELETE_SENSOR;
+  type: SensorActionTypeEnum.DELETE_SUCCESSFULLY_SENSOR;
 };
 
 export type UpdateSensorActionType = {
@@ -35,7 +35,7 @@ export type UpdateSensorActionType = {
 
 export type UpdateSuccessfullySensorActionType = {
   sensor: ISensor;
-  type: SensorActionTypeEnum.UPDATE_SENSOR;
+  type: SensorActionTypeEnum.UPDATE_SUCCESSFULLY_SENSOR;
 };
 
 export type SensorActionType =
