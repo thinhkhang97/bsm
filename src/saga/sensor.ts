@@ -5,7 +5,6 @@ import {selectAccessToken} from '../selectors/authentication';
 export function* getSensorWithIoT() {
   try {
     const token: string = yield select(selectAccessToken);
-    console.log('GOT TOKEN', token);
     if (!!token) {
       // call to get sensor data
     }

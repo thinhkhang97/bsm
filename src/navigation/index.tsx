@@ -11,7 +11,7 @@ export enum SCREEN_NAME {
   AUTH_LOADING = 'AUTH_LOADING',
 }
 
-export const Navigation = () => (
+export const Navigator = () => (
   <NavigationContainer>
     <Stack.Navigator
       initialRouteName={SCREEN_NAME.AUTH_LOADING}

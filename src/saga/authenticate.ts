@@ -11,7 +11,6 @@ function* getAccessToken() {
   );
   if (result) {
     const {access_token} = result;
-    console.log('ACCESS TOKEN', access_token);
     if (access_token) {
       yield put(setAccessTokenAction(access_token));
     }

@@ -6,9 +6,17 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import {getSensorAction} from '../../action/sensor';
 import {SCREEN_NAME} from '../../navigation';
+import {useQuery} from '@apollo/client';
+import {GET_SENSOR_WITH_IOT} from '../../graphql/sensor';
 
 export const Sensors = () => {
   const dispatch = useDispatch();
+  const {loading, data, client} = useQuery(GET_SENSOR_WITH_IOT, {
+    onError: e => {
+      console.log('error', e);
+    },
+  });
+
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   useEffect(() => {
