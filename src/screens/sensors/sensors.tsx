@@ -28,6 +28,10 @@ export const Sensors = () => {
     return <SensorItem data={item} onPress={handlePressItem} />;
   };
 
+  const renderEmptyState = () => (
+    <Text style={styles.emptyState}>LOADING LIST SENSORS...</Text>
+  );
+
   const keyExtractor = (item: ISensor) => `list_sensors_item_${item.deviceId}`;
 
   return (
@@ -37,6 +41,7 @@ export const Sensors = () => {
         <Text>Region: ALL</Text>
       </View>
       <FlatList
+        ListEmptyComponent={renderEmptyState}
         style={styles.list}
         data={sensors}
         renderItem={renderItem}
@@ -58,5 +63,8 @@ const styles = StyleSheet.create({
   list: {
     paddingHorizontal: 16,
     paddingTop: 16,
+  },
+  emptyState: {
+    textAlign: 'center',
   },
 });

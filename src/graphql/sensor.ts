@@ -63,11 +63,10 @@ export const DELETE_SENSOR = gql`
 
 export const deleteSensors = async (deviceIds: number[]): Promise<void> => {
   try {
-    const res = await client.mutate({
+    await client.mutate({
       mutation: DELETE_SENSOR,
       variables: {type: 'Device', deviceIds},
     });
-    console.log(res);
   } catch {}
 };
 
