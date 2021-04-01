@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button, SafeAreaView, Text, View} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -9,6 +9,7 @@ import {SCREEN_NAME} from '../../navigation';
 import {selectSensorsWithIoT} from '../../selectors/sensor';
 import {FlatList} from 'react-native-gesture-handler';
 import {ISensor} from '../../type/sensor';
+import {SensorItem} from '../../components';
 
 export const Sensors = () => {
   const dispatch = useDispatch();
@@ -20,18 +21,19 @@ export const Sensors = () => {
   }, []);
 
   const renderItem = ({item}: {item: ISensor}) => {
-    return (
-      <View>
-        <Text>{item.name}</Text>
-      </View>
-    );
+    return <SensorItem data={item} />;
   };
 
   const keyExtractor = (item: ISensor) => `list_sensors_item_${item.deviceId}`;
 
   return (
     <SafeAreaView>
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>SENSOR LIST</Text>
+        <Text>Region: ALL</Text>
+      </View>
       <FlatList
+        style={styles.list}
         data={sensors}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
@@ -39,3 +41,18 @@ export const Sensors = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  headerContainer: {
+    paddingHorizontal: 16,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  list: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+});
