@@ -18,8 +18,10 @@ function* getSensorWithIoT() {
 }
 
 function* updateSensor(action: UpdateSensorActionType) {
-  // Call API update sensor
+  // @ts-ignore: Strange props, need to be fix later.
+  delete action.sensor['__typename'];
 
+  sensorGQL.updateSensor(action.sensor);
   yield put(updateSuccessfullySensorAction(action.sensor));
 }
 

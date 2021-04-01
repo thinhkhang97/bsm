@@ -3,7 +3,7 @@ import {client} from '.';
 import {ISensor} from '../type/sensor';
 
 export const GET_SENSOR_WITH_IOT = gql`
-  query MyQuery {
+  query GetSensor {
     getSensorsWithIoT {
       deviceId
       name
@@ -25,6 +25,35 @@ export const getSensorsWithIoT = async (): Promise<ISensor[]> => {
   }
 };
 
+export const UPDATE_SENSOR = gql`
+  mutation UpdateDevice($input: DeviceUpdateInput) {
+    updateDevice(input: $input) {
+      deviceId
+      name
+      serial
+      mac
+      region
+      longitude
+      latitude
+    }
+  }
+`;
+
+export const updateSensor = async (
+  sensor: ISensor,
+): Promise<ISensor | undefined> => {
+  try {
+    const res = await client.mutate({
+      mutation: UPDATE_SENSOR,
+      variables: {input: sensor},
+    });
+    return res.data;
+  } catch (e) {
+    return;
+  }
+};
+
 export const sensorGQL = {
   getSensorsWithIoT,
+  updateSensor,
 };
